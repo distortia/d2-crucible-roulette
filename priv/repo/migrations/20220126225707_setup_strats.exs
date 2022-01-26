@@ -6,6 +6,8 @@ defmodule D2CrucibleRoulette.Repo.Migrations.SetupStrats do
       add :name, :string
       add :description, :text
       add :author, :string
+      add :likes, :integer
+      add :dislikes, :integer
     end
   end
 end
