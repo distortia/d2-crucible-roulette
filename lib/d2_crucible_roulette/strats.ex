@@ -22,7 +22,7 @@ defmodule D2CrucibleRoulette.Strats do
   def random() do
     query =
       from Strat,
-      order_by: fragment("RANDOM()")
+        order_by: fragment("RANDOM()")
 
     query
     |> Repo.all()
@@ -64,5 +64,4 @@ defmodule D2CrucibleRoulette.Strats do
     strat
     |> update(%{dislikes: strat.dislikes + 1})
   end
-
 end
