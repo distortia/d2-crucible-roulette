@@ -24,7 +24,9 @@ defmodule D2CrucibleRoulette.Strats do
       from Strat,
       order_by: fragment("RANDOM()")
 
-    Repo.one(query)
+    query
+    |> Repo.all()
+    |> List.first()
   end
 
 end
