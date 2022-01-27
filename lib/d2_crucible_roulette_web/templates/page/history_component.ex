@@ -16,5 +16,4 @@ defmodule D2CrucibleRouletteWeb.HistoryComponent do
     </div>
     """
   end
-
 end

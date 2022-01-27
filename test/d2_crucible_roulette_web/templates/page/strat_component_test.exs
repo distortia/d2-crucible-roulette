@@ -2,7 +2,7 @@ defmodule D2CrucibleRouletteWeb.StratComponentTest do
   use D2CrucibleRouletteWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
 
-	alias D2CrucibleRouletteWeb.StratComponent
+  alias D2CrucibleRouletteWeb.StratComponent
   @endpoint D2CrucibleRouletteWeb.Endpoint
 
   test "renders the strat component" do

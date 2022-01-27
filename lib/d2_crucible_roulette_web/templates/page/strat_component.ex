@@ -22,5 +22,4 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
     </div>
     """
   end
-
 end
