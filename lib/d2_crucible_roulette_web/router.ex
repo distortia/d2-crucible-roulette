@@ -17,7 +17,7 @@ defmodule D2CrucibleRouletteWeb.Router do
   scope "/", D2CrucibleRouletteWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", PageLive
   end
 
   # Other scopes may use custom stacks.
