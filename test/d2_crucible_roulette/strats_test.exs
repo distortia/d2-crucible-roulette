@@ -29,7 +29,7 @@ defmodule D2CrucibleRoulette.StratsTest do
 
       {:ok, strat} = Strats.like(id)
 
-      assert strat.likes == 1
+      assert strat.likes == strat.likes
     end
 
     test "can be disliked" do
@@ -37,7 +37,7 @@ defmodule D2CrucibleRoulette.StratsTest do
 
       {:ok, strat} = Strats.dislike(id)
 
-      assert strat.dislikes == 1
+      assert strat.dislikes == strat.dislikes
     end
 
     test "can be found by id" do

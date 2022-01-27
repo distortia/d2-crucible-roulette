@@ -8,6 +8,7 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
   test "renders home page", ~M{conn} do
     {:ok, _view, html} = live(conn, "/")
     assert html =~ "<h1>Click the button to fetch a random strat!</h1>"
+    assert html =~ "<h3>History</h3>"
   end
 
   test "fetches a strat", ~M{conn} do
@@ -25,13 +26,13 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
     strat = insert(:strat)
     {:ok, view, _html} = live(conn, "/")
     render_click(view, :fetch)
-    assert render_click(view, :like, %{"id" => strat.id}) =~ "Likes: 1"
+    assert render_click(view, :like, %{"id" => strat.id}) =~ "Likes: #{strat.likes + 1}"
   end
 
   test "a strat can be disliked", ~M{conn} do
     strat = insert(:strat)
     {:ok, view, _html} = live(conn, "/")
     render_click(view, :fetch)
-    assert render_click(view, :dislike, %{"id" => strat.id}) =~ "Dislikes: 1"
+    assert render_click(view, :dislike, %{"id" => strat.id}) =~ "Dislikes: #{strat.dislikes + 1}"
   end
 end
