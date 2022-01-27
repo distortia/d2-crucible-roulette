@@ -7,7 +7,9 @@ defmodule D2CrucibleRoulette.Factory do
     %Strat{
       name: Faker.Food.dish(),
       description: Faker.Food.description(),
-      author: Faker.App.name()
+      author: Faker.App.name(),
+      likes: Faker.random_between(0, 100),
+      dislikes: Faker.random_between(0, 100)
     }
   end
 end
