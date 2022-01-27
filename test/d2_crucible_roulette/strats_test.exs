@@ -33,6 +33,50 @@ defmodule D2CrucibleRoulette.StratsTest do
       assert strat.description == expected_strat.description
       assert strat.author == expected_strat.author
     end
+
+    test "can be liked" do
+      {:ok, %{id: id}} = Strats.add(%{
+        name: Faker.Food.dish(),
+        description: Faker.Food.description(),
+        author: Faker.App.name()
+      })
+
+      {:ok, strat} = Strats.like(id)
+
+      assert strat.likes == 1
+    end
+
+    test "can be disliked" do
+      {:ok, %{id: id}} = Strats.add(%{
+        name: Faker.Food.dish(),
+        description: Faker.Food.description(),
+        author: Faker.App.name()
+      })
+
+      {:ok, strat} = Strats.dislike(id)
+
+      assert strat.dislikes == 1
+    end
+
+    test "can be found by id" do
+      {:ok, expected} = Strats.add(%{
+        name: Faker.Food.dish(),
+        description: Faker.Food.description(),
+        author: Faker.App.name()
+      })
+
+      assert expected == Strats.get(expected.id)
+    end
+
+    test "can be updated" do
+      {:ok, strat} = Strats.add(%{
+        name: Faker.Food.dish(),
+        description: Faker.Food.description(),
+        author: Faker.App.name()
+      })
+
+      assert {:ok, %{name: "New name"}} = Strats.update(strat, %{name: "New name"})
+    end
   end
 
 end

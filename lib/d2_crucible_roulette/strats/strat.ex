@@ -12,7 +12,7 @@ defmodule D2CrucibleRoulette.Strats.Strat do
 
   def changeset(strat, attrs) do
     strat
-    |> cast(attrs, [:name, :description, :author])
+    |> cast(attrs, [:name, :description, :author, :likes, :dislikes])
     |> validate_required([:name, :description, :author])
   end
 end
