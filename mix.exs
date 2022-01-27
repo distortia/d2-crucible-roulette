@@ -49,7 +49,9 @@ defmodule D2CrucibleRoulette.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:nimble_csv, "~> 1.1"}
+      {:nimble_csv, "~> 1.1"},
+      {:faker, "~> 0.17", only: :test},
+      {:mix_test_interactive, "~> 1.1", only: :dev, runtime: false}
     ]
   end
 

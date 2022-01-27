@@ -6,8 +6,8 @@ defmodule D2CrucibleRoulette.Strats.Strat do
     field :name, :string
     field :description, :string
     field :author, :string
-    field :likes, :integer
-    field :dislikes, :integer
+    field :likes, :integer, default: 0
+    field :dislikes, :integer, default: 0
   end
 
   def changeset(strat, attrs) do
