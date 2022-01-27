@@ -1,12 +1,7 @@
 defmodule D2CrucibleRoulette.StratsTest do
-	use ExUnit.Case, async: true
-	doctest D2CrucibleRoulette.Strats
-	alias D2CrucibleRoulette.Strats
-  alias D2CrucibleRoulette.Repo
-
-  setup do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Repo)
-  end
+  use D2CrucibleRouletteWeb.ConnCase, async: true
+  doctest D2CrucibleRoulette.Strats
+  alias D2CrucibleRoulette.Strats
 
   describe "Strats" do
     test "can be added to the database" do
@@ -20,12 +15,7 @@ defmodule D2CrucibleRoulette.StratsTest do
     end
 
     test "can be randomly fetched from the database" do
-      expected_strat = %{
-        name: Faker.Food.dish(),
-        description: Faker.Food.description(),
-        author: Faker.App.name()
-      }
-      Strats.add(expected_strat)
+      expected_strat = insert(:strat)
 
       strat = Strats.random()
 
@@ -35,11 +25,7 @@ defmodule D2CrucibleRoulette.StratsTest do
     end
 
     test "can be liked" do
-      {:ok, %{id: id}} = Strats.add(%{
-        name: Faker.Food.dish(),
-        description: Faker.Food.description(),
-        author: Faker.App.name()
-      })
+      ~M{id} = insert(:strat)
 
       {:ok, strat} = Strats.like(id)
 
@@ -47,11 +33,7 @@ defmodule D2CrucibleRoulette.StratsTest do
     end
 
     test "can be disliked" do
-      {:ok, %{id: id}} = Strats.add(%{
-        name: Faker.Food.dish(),
-        description: Faker.Food.description(),
-        author: Faker.App.name()
-      })
+      ~M{id} = insert(:strat)
 
       {:ok, strat} = Strats.dislike(id)
 
@@ -59,24 +41,15 @@ defmodule D2CrucibleRoulette.StratsTest do
     end
 
     test "can be found by id" do
-      {:ok, expected} = Strats.add(%{
-        name: Faker.Food.dish(),
-        description: Faker.Food.description(),
-        author: Faker.App.name()
-      })
+      expected = insert(:strat)
 
       assert expected == Strats.get(expected.id)
     end
 
     test "can be updated" do
-      {:ok, strat} = Strats.add(%{
-        name: Faker.Food.dish(),
-        description: Faker.Food.description(),
-        author: Faker.App.name()
-      })
+      strat = insert(:strat)
 
       assert {:ok, %{name: "New name"}} = Strats.update(strat, %{name: "New name"})
     end
   end
-
 end
