@@ -51,7 +51,9 @@ defmodule D2CrucibleRoulette.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:nimble_csv, "~> 1.1"},
       {:faker, "~> 0.17", only: :test},
-      {:mix_test_interactive, "~> 1.1", only: :dev, runtime: false}
+      {:mix_test_interactive, "~> 1.1", only: :dev, runtime: false},
+      {:shorter_maps, "~> 2.2"},
+      {:ex_machina, "~> 2.7.0", only: :test}
     ]
   end
 
