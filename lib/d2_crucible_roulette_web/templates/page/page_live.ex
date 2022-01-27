@@ -11,7 +11,10 @@ defmodule D2CrucibleRouletteWeb.PageLive do
     <%= if @strat do %>
       <h3><%= @strat.name %></h3>
       <p><%= @strat.description %></p>
-      <a href=""><%= @strat.author %></a>
+      <span>
+        Discord:
+        <a href={"https://discordapp.com/users/#{@strat.author}"}><%= @strat.author %></a>
+      </span>
       <div>
         <span>
           Likes: <%= @strat.likes %> - <button phx-click="like" phx-value-id={@strat.id}>Like</button>
