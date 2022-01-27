@@ -2,7 +2,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   use Phoenix.LiveView
 
   alias D2CrucibleRoulette.Strats
-  alias D2CrucibleRouletteWeb.StratComponent
+  alias D2CrucibleRouletteWeb.{HistoryComponent, StratComponent}
 
   @impl Phoenix.LiveView
   def render(assigns) do
@@ -14,14 +14,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
     <% end %>
     <hr>
     <h3>History</h3>
-    <%= for [name, description] <- @history do %>
-      <div>
-        <h4>
-          <%= name %>
-        </h4>
-        <p><%= description %></p>
-      </div>
-    <% end %>
+    <.live_component module={HistoryComponent} id="history-component" history={@history} />
     """
   end
 
