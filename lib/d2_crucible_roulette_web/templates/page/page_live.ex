@@ -7,20 +7,30 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
-    <h1>Click the button to fetch a random strat!</h1>
-    <button phx-click="fetch">Fetch</button>
-    <%= if @strat do %>
-      <.live_component module={StratComponent} id="strat-component" strat={@strat} />
-    <% end %>
-    <hr>
-    <h3>History</h3>
-    <.live_component module={HistoryComponent} id="history-component" history={@history} />
+    <div class="section">
+      <div class="container">
+        <.live_component module={StratComponent} id="strat-component" strat={@strat} />
+        <div class="hero is-dark">
+          <div class="hero-body is-align-self-center">
+            <button class="button is-primary is-medium" phx-click="fetch">
+              <span class="icon">
+                <i class="fas fa-dice-d20"></i>
+              </span>
+              <span>Roll</span>
+            </button>
+          </div>
+        </div>
+        <.live_component module={HistoryComponent} id="history-component" history={@history} />
+      </div>
+    </div>
     """
   end
 
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
-    socket = assign(socket, strat: nil, history: [])
+    strat = Strats.random()
+    history = push_history(strat, [])
+    socket = assign(socket, strat: strat, history: history)
     {:ok, socket}
   end
 
@@ -28,7 +38,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def handle_event("fetch", _session, socket) do
     current_history = socket.assigns.history
     strat = Strats.random()
-    history = [[strat.name, strat.description] | current_history]
+    history = push_history(strat, current_history)
     socket = assign(socket, strat: strat, history: history)
 
     {:noreply, socket}
@@ -54,5 +64,9 @@ defmodule D2CrucibleRouletteWeb.PageLive do
       _ ->
         {:noreply, socket}
     end
+  end
+
+  defp push_history(strat, history) do
+    [[strat.name, strat.description] | history]
   end
 end
