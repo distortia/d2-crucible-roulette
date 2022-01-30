@@ -18,6 +18,8 @@ defmodule D2CrucibleRouletteWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
+
+    live "/strats", ListLive
   end
 
   # Other scopes may use custom stacks.

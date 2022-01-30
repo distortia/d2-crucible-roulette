@@ -36,6 +36,8 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
     strat = insert(:strat)
     {:ok, view, _html} = live(conn, "/")
     render_click(view, :fetch)
-    assert render_click(view, :dislike, %{"id" => strat.id}) =~ "<span>#{strat.dislikes + 1}</span>"
+
+    assert render_click(view, :dislike, %{"id" => strat.id}) =~
+             "<span>#{strat.dislikes + 1}</span>"
   end
 end

@@ -64,4 +64,11 @@ defmodule D2CrucibleRoulette.Strats do
     strat
     |> update(%{dislikes: strat.dislikes + 1})
   end
+
+  @doc """
+  Returns all strats
+  """
+  def list() do
+    Repo.all(Strat)
+  end
 end
