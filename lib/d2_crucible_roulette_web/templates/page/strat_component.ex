@@ -10,7 +10,7 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
     ~H"""
     <div class="card">
       <header class="card-header">
-        <p class="card-header-title">
+        <p class="card-header-title strat-name">
           <%= @strat.name %>
         </p>
       </header>

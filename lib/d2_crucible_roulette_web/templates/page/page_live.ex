@@ -33,7 +33,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     strat = Strats.random()
-    history = push_history(strat, [])
+    history = []
     socket = assign(socket, strat: strat, history: history)
     {:ok, socket}
   end
@@ -46,15 +46,20 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   Sends an update to the component that initiated the event or returns
   nothing if something failed
 
-  Dislike handles the `dislike` event when clicking the thumbs-up on the given strat
+  Dislike handles the `dislike` event when clicking the thumbs-down on the given strat
   Sends an update to the component that initiated the event or returns
   nothing if something failed
   """
   @impl Phoenix.LiveView
   def handle_event("fetch", _session, socket) do
     current_history = socket.assigns.history
-    strat = Strats.random()
-    history = push_history(strat, current_history)
+    previous_strat = socket.assigns.strat
+
+    strat =
+      Strats.random()
+      |> refetch_if_dupe(current_history)
+
+    history = push_history(previous_strat, current_history)
     socket = assign(socket, strat: strat, history: history)
 
     {:noreply, socket}
@@ -79,6 +84,25 @@ defmodule D2CrucibleRouletteWeb.PageLive do
     else
       _ ->
         {:noreply, socket}
+    end
+  end
+
+  defp refetch_if_dupe(strat, []), do: strat
+
+  defp refetch_if_dupe(strat, history) do
+    IO.inspect(strat.name, label: "NAME")
+    IO.inspect(history, label: "HISTORY")
+
+    case Enum.member?(history, [strat.name, strat.description]) do
+      true ->
+        IO.puts("is member")
+
+        Strats.random()
+        |> refetch_if_dupe(history)
+
+      false ->
+        IO.puts("is not member")
+        strat
     end
   end
 
