@@ -90,18 +90,12 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   defp refetch_if_dupe(strat, []), do: strat
 
   defp refetch_if_dupe(strat, history) do
-    IO.inspect(strat.name, label: "NAME")
-    IO.inspect(history, label: "HISTORY")
-
     case Enum.member?(history, [strat.name, strat.description]) do
       true ->
-        IO.puts("is member")
-
         Strats.random()
         |> refetch_if_dupe(history)
 
       false ->
-        IO.puts("is not member")
         strat
     end
   end
