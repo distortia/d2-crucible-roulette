@@ -51,5 +51,11 @@ defmodule D2CrucibleRoulette.StratsTest do
 
       assert {:ok, %{name: "New name"}} = Strats.update(strat, %{name: "New name"})
     end
+
+    test "can return all strats" do
+      strats = insert_list(10, :strat)
+
+      assert Strats.list() == strats
+    end
   end
 end
