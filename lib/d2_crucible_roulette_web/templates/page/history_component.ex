@@ -1,6 +1,10 @@
 defmodule D2CrucibleRouletteWeb.HistoryComponent do
   use D2CrucibleRouletteWeb, :live_component
 
+  @moduledoc """
+  The HistoryComponent is a basic display of a given strat.
+  """
+
   @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""

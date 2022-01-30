@@ -1,6 +1,10 @@
 defmodule D2CrucibleRouletteWeb.StratComponent do
   use D2CrucibleRouletteWeb, :live_component
 
+  @moduledoc """
+  A StratComponent is a basic representation of a given strat which displays all of the strat's information
+  """
+
   @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""

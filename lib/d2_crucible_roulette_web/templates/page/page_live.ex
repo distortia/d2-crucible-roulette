@@ -4,6 +4,10 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   alias D2CrucibleRoulette.Strats
   alias D2CrucibleRouletteWeb.{HistoryComponent, StratComponent}
 
+  @moduledoc """
+  PageLive is the main page for the application where users can get a random strat and view their strat history within their session.
+  """
+
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
@@ -34,6 +38,18 @@ defmodule D2CrucibleRouletteWeb.PageLive do
     {:ok, socket}
   end
 
+  @doc """
+  Fetch handles the `fetch` event when clicking the `roll` button
+  Sends a new strat to be displayed and updates the history with the new strat
+
+  Like handles the `like` event when clicking the thumbs-up on the given strat
+  Sends an update to the component that initiated the event or returns
+  nothing if something failed
+
+  Dislike handles the `dislike` event when clicking the thumbs-up on the given strat
+  Sends an update to the component that initiated the event or returns
+  nothing if something failed
+  """
   @impl Phoenix.LiveView
   def handle_event("fetch", _session, socket) do
     current_history = socket.assigns.history

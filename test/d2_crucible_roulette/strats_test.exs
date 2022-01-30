@@ -1,6 +1,5 @@
 defmodule D2CrucibleRoulette.StratsTest do
   use D2CrucibleRouletteWeb.ConnCase, async: true
-  doctest D2CrucibleRoulette.Strats
   alias D2CrucibleRoulette.Strats
 
   describe "Strats" do

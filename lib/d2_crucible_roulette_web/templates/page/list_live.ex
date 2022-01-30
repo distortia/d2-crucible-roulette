@@ -4,6 +4,10 @@ defmodule D2CrucibleRouletteWeb.ListLive do
   alias D2CrucibleRoulette.Strats
   alias D2CrucibleRouletteWeb.StratComponent
 
+  @moduledoc """
+  ListLive is responsible for displaying all of the Strats in the Database
+  """
+
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
@@ -29,6 +33,15 @@ defmodule D2CrucibleRouletteWeb.ListLive do
     {:ok, socket}
   end
 
+  @doc """
+  Like handles the `like` event when clicking the thumbs-up on the given strat
+  Sends an update to the component that initiated the event or returns
+  nothing if something failed
+
+  Dislike handles the `dislike` event when clicking the thumbs-up on the given strat
+  Sends an update to the component that initiated the event or returns
+  nothing if something failed
+  """
   @impl Phoenix.LiveView
   def handle_event("like", %{"id" => strat_id}, socket) do
     with {:ok, strat} <- Strats.like(strat_id) do
