@@ -2,6 +2,10 @@ defmodule D2CrucibleRoulette.Strats.Strat do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @moduledoc """
+  Strat represents what and how a strat is represented in the database
+  """
+
   schema "strats" do
     field :name, :string
     field :description, :string
