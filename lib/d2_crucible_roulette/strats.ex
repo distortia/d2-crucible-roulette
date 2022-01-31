@@ -71,4 +71,11 @@ defmodule D2CrucibleRoulette.Strats do
   def list() do
     Repo.all(Strat)
   end
+
+  @doc """
+  Returns a changeset
+  """
+  def change() do
+    Strat.changeset(%Strat{}, %{})
+  end
 end

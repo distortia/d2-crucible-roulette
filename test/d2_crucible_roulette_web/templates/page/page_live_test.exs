@@ -42,6 +42,7 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
     assert element(view, ".card .strat-dislikes") |> render() =~ "#{strat.dislikes + 1}"
   end
 
+  # TODO: This test is flakey :(
   test "a strat will not be duplicated", ~M{conn} do
     insert(:strat, %{name: "one"})
     insert(:strat, %{name: "two"})

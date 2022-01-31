@@ -20,6 +20,9 @@ defmodule D2CrucibleRouletteWeb.Router do
     live "/", PageLive
 
     live "/strats", ListLive
+
+    get "/new", PageController, :new
+    post "/submit", PageController, :submit
   end
 
   # Other scopes may use custom stacks.
