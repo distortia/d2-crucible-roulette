@@ -4,9 +4,9 @@ defmodule D2CrucibleRoulette.Factory do
 
   def strat_factory() do
     %Strat{
-      name: Faker.Food.dish(),
+      name: Faker.Lorem.word(),
       description: Faker.Food.description(),
-      author: Faker.App.name(),
+      author: Faker.Internet.user_name(),
       likes: Faker.random_between(0, 100),
       dislikes: Faker.random_between(0, 100)
     }

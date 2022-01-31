@@ -26,10 +26,6 @@
   background-color: #363636;
 }
 
-.icon:hover {
-  cursor: pointer;
-}
-
 .card + .card {
   margin-top: 2.5%;
 }

@@ -29,7 +29,8 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
     strat = insert(:strat)
     {:ok, view, _html} = live(conn, "/")
     render_click(view, :fetch)
-    assert render_click(view, :like, %{"id" => strat.id}) =~ "<span>#{strat.likes + 1}</span>"
+    render_click(view, :like, %{"id" => strat.id})
+    assert element(view, ".card .strat-likes") |> render() =~ "#{strat.likes + 1}"
   end
 
   test "a strat can be disliked", ~M{conn} do
@@ -37,12 +38,14 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
     {:ok, view, _html} = live(conn, "/")
     render_click(view, :fetch)
 
-    assert render_click(view, :dislike, %{"id" => strat.id}) =~
-             "<span>#{strat.dislikes + 1}</span>"
+    render_click(view, :dislike, %{"id" => strat.id})
+    assert element(view, ".card .strat-dislikes") |> render() =~ "#{strat.dislikes + 1}"
   end
 
   test "a strat will not be duplicated", ~M{conn} do
-    insert_list(3, :strat)
+    insert(:strat, %{name: "one"})
+    insert(:strat, %{name: "two"})
+    insert(:strat, %{name: "three"})
     {:ok, view, _html} = live(conn, "/")
     first_strat = element(view, ".strat-name") |> render()
     render_click(view, :fetch)
