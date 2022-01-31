@@ -16,14 +16,14 @@ defmodule D2CrucibleRouletteWeb.ListLiveTest do
     strat = insert(:strat)
     {:ok, view, _html} = live(conn, "/strats")
     render_click(view, :like, %{"id" => strat.id})
-    assert render(view) =~ "<span>#{strat.likes + 1}</span>"
+    assert element(view, ".card .strat-likes") |> render() =~ "#{strat.likes + 1}"
   end
 
   test "a strat can be disliked", ~M{conn} do
     strat = insert(:strat)
     {:ok, view, _html} = live(conn, "/strats")
     render_click(view, :dislike, %{"id" => strat.id})
-    assert render(view) =~ "<span>#{strat.dislikes + 1}</span>"
+    assert element(view, ".card .strat-dislikes") |> render() =~ "#{strat.dislikes + 1}"
   end
 
   test "strats can be sorted alphabetically by name", ~M{conn} do
@@ -45,20 +45,20 @@ defmodule D2CrucibleRouletteWeb.ListLiveTest do
   end
 
   test "strats can be sorted by likes", ~M{conn} do
+    insert(:strat, %{likes: 0})
     insert(:strat, %{likes: 10})
-    insert(:strat, %{likes: 1})
     {:ok, view, _html} = live(conn, "/strats")
-    first = element(view, ".card:nth-child(1) .strat-name") |> render()
+    first = element(view, ".card:nth-child(1) .strat-likes") |> render()
     render_click(view, :sort, %{"type" => "likes"})
-    refute element(view, ".card:nth-child(1) .strat-name") |> render() == first
+    refute element(view, ".card:nth-child(1) .strat-likes") |> render() == first
   end
 
   test "strats can be sorted by dislikes", ~M{conn} do
     insert(:strat, %{dislikes: 1})
     insert(:strat, %{dislikes: 10})
     {:ok, view, _html} = live(conn, "/strats")
-    first = element(view, ".card:nth-child(1) .strat-name") |> render()
+    first = element(view, ".card:nth-child(1) .strat-dislikes") |> render()
     render_click(view, :sort, %{"type" => "dislikes"})
-    refute element(view, ".card:nth-child(1) .strat-name") |> render() == first
+    refute element(view, ".card:nth-child(1) .strat-dislikes") |> render() == first
   end
 end

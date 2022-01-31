@@ -28,7 +28,7 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
             <span class="icon">
               <i class="fas fa-thumbs-up"></i>
             </span>
-            <span><%= @strat.likes %></span>
+            <span class="strat-likes"><%= @strat.likes %></span>
           </span>
         </a>
         <a class="card-footer-item has-text-danger" phx-click="dislike" phx-value-id={@strat.id}>
@@ -36,7 +36,7 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
             <span class="icon">
               <i class="fas fa-thumbs-down"></i>
             </span>
-            <span><%= @strat.dislikes %></span>
+            <span class="strat-dislikes"><%= @strat.dislikes %></span>
           </span>
         </a>
       </footer>
