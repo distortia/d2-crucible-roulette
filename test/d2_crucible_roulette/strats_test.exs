@@ -56,5 +56,9 @@ defmodule D2CrucibleRoulette.StratsTest do
 
       assert Strats.list() == strats
     end
+
+    test "can return a changeset" do
+      assert Strats.change() == Strats.Strat.changeset(%Strats.Strat{}, %{})
+    end
   end
 end
