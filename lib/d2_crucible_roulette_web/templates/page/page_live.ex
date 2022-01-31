@@ -16,7 +16,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
         <.live_component module={StratComponent} id="strat-component" strat={@strat} />
         <div class="hero is-dark">
           <div class="hero-body is-align-self-center">
-            <button class="button is-primary is-medium" phx-click="fetch">
+            <button class="button is-primary is-medium" phx-click="fetch" phx-disable-with="Rolling...">
               <span class="icon">
                 <i class="fas fa-dice-d20"></i>
               </span>
