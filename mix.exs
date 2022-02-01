@@ -53,7 +53,8 @@ defmodule D2CrucibleRoulette.MixProject do
       {:faker, "~> 0.17", only: :test},
       {:mix_test_interactive, "~> 1.1", only: :dev, runtime: false},
       {:shorter_maps, "~> 2.2"},
-      {:ex_machina, "~> 2.7.0", only: :test}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:phoenix_swoosh, "~> 1.0"}
     ]
   end
 

@@ -1,6 +1,7 @@
 defmodule D2CrucibleRouletteWeb.PageController do
   use Phoenix.Controller
-  alias D2CrucibleRoulette.Strats
+  alias D2CrucibleRoulette.{Mailer, Strats}
+  alias D2CrucibleRouletteWeb.StratEmail
 
   def new(conn, _params) do
     changeset = Strats.change()
@@ -9,6 +10,10 @@ defmodule D2CrucibleRouletteWeb.PageController do
 
   def submit(conn, %{"strat" => strat}) do
     changeset = Strats.change()
+
+    strat
+    |> StratEmail.strat()
+    |> Mailer.deliver()
 
     conn
     |> put_flash(:info, "Thank you for submitting a strat!")
