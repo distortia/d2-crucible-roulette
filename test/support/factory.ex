@@ -2,6 +2,8 @@ defmodule D2CrucibleRoulette.Factory do
   use ExMachina.Ecto, repo: D2CrucibleRoulette.Repo
   alias D2CrucibleRoulette.Strats.Strat
 
+  @moduledoc false
+
   def strat_factory() do
     %Strat{
       name: Faker.Lorem.word(),

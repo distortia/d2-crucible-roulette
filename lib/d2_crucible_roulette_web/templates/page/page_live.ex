@@ -67,10 +67,11 @@ defmodule D2CrucibleRouletteWeb.PageLive do
 
   @impl Phoenix.LiveView
   def handle_event("like", %{"id" => strat_id}, socket) do
-    with {:ok, strat} <- Strats.like(strat_id) do
-      socket = assign(socket, strat: strat)
-      {:noreply, socket}
-    else
+    case Strats.like(strat_id) do
+      {:ok, strat} ->
+        socket = assign(socket, strat: strat)
+        {:noreply, socket}
+
       _ ->
         {:noreply, socket}
     end
@@ -78,10 +79,11 @@ defmodule D2CrucibleRouletteWeb.PageLive do
 
   @impl Phoenix.LiveView
   def handle_event("dislike", %{"id" => strat_id}, socket) do
-    with {:ok, strat} <- Strats.dislike(strat_id) do
-      socket = assign(socket, strat: strat)
-      {:noreply, socket}
-    else
+    case Strats.dislike(strat_id) do
+      {:ok, strat} ->
+        socket = assign(socket, strat: strat)
+        {:noreply, socket}
+
       _ ->
         {:noreply, socket}
     end
