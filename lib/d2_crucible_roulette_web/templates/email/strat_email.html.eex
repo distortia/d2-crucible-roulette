@@ -1,0 +1,9 @@
+<div>
+  <h1>New Strat!</h1>
+
+  <div>
+    <p><%= @strat["name"] %></p>
+    <p><%= @strat["description"] %></p>
+    <p><%= @strat["author"] %></p>
+  </div>
+</div>
