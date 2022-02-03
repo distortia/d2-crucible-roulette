@@ -53,7 +53,8 @@ defmodule D2CrucibleRouletteWeb.PageLive do
 
 
   Restore handles the `restore` event which restores session data containing the current strat and the strat history
-  Sets the current strat and history to what is stored in the sessionStorage
+  Sets the current strat and history to what is stored in the sessionStorage.
+  If currentStrat is nil, then we continue on as normal
   """
   @impl Phoenix.LiveView
   def handle_event("fetch", _session, socket) do
@@ -74,6 +75,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def handle_event("like", %{"id" => strat_id}, socket) do
     case Strats.like(strat_id) do
       {:ok, strat} ->
+        Process.send(self(), {:save, strat, socket.assigns.history}, [])
         socket = assign(socket, strat: strat)
         {:noreply, socket}
 
@@ -86,6 +88,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def handle_event("dislike", %{"id" => strat_id}, socket) do
     case Strats.dislike(strat_id) do
       {:ok, strat} ->
+        Process.send(self(), {:save, strat, socket.assigns.history}, [])
         socket = assign(socket, strat: strat)
         {:noreply, socket}
 
