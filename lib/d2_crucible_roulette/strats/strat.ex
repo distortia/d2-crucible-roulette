@@ -2,6 +2,8 @@ defmodule D2CrucibleRoulette.Strats.Strat do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:name, :description, :author, :likes, :dislikes, :id]}
+
   @moduledoc """
   Strat represents what and how a strat is represented in the database
   """
@@ -20,3 +22,11 @@ defmodule D2CrucibleRoulette.Strats.Strat do
     |> validate_required([:name, :description, :author])
   end
 end
+
+# defimpl Jason.Encoder, for: D2CrucibleRoulette.Strats.Strat do
+#   def encode(strat, opts) do
+#     strat
+#     |> Map.from_struct()
+#     |> Jason.Encode.map(opts)
+#   end
+# end
