@@ -12,11 +12,12 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def render(assigns) do
     ~H"""
     <div class="section">
-      <div class="container">
-        <.live_component module={StratComponent} id="strat-component" strat={@strat} />
+      <div class="container" id="page-live" phx-hook="Restore">
+        <span class="has-text-white"><%= @strat.name %></span>
+        <.live_component module={StratComponent} id="strat-component" strat={@strat}/>
         <div class="hero is-dark">
           <div class="hero-body is-align-self-center">
-            <button class="button is-primary is-medium" phx-click="fetch" phx-disable-with="Rolling...">
+            <button class="button is-primary is-medium" id="fetch-button" phx-click="fetch" phx-disable-with="Rolling...">
               <span class="icon">
                 <i class="fas fa-dice-d20"></i>
               </span>
@@ -49,6 +50,10 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   Dislike handles the `dislike` event when clicking the thumbs-down on the given strat
   Sends an update to the component that initiated the event or returns
   nothing if something failed
+
+
+  Restore handles the `restore` event which restores session data containing the current strat and the strat history
+  Sets the current strat and history to what is stored in the sessionStorage
   """
   @impl Phoenix.LiveView
   def handle_event("fetch", _session, socket) do
@@ -60,8 +65,8 @@ defmodule D2CrucibleRouletteWeb.PageLive do
       |> refetch_if_dupe(current_history)
 
     history = push_history(previous_strat, current_history)
+    Process.send(self(), {:save, strat, history}, [])
     socket = assign(socket, strat: strat, history: history)
-
     {:noreply, socket}
   end
 
@@ -87,6 +92,28 @@ defmodule D2CrucibleRouletteWeb.PageLive do
       _ ->
         {:noreply, socket}
     end
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("restore", %{"currentStrat" => nil}, socket), do: {:noreply, socket}
+
+  @impl Phoenix.LiveView
+  def handle_event("restore", %{"currentStrat" => strat, "currentHistory" => history}, socket) do
+    strat = Jason.decode!(strat, keys: :atoms)
+
+    history = Jason.decode!(history)
+    socket = assign(socket, strat: strat, history: history)
+    {:noreply, socket}
+  end
+
+  @doc """
+  Save takes the current strat and history and emits a JS event to save the items to sessionStorage
+  """
+  @impl Phoenix.LiveView
+  def handle_info({:save, strat, history}, socket) do
+    strat = Jason.encode!(strat)
+    history = Jason.encode!(history)
+    {:noreply, push_event(socket, "setCurrent", %{strat: strat, history: history})}
   end
 
   defp refetch_if_dupe(strat, []), do: strat

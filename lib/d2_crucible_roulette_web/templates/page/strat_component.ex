@@ -8,7 +8,7 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
   @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""
-    <div class="card">
+    <div class="card" id={"strat-@strat.id"} phx-hook="setCurrent" >
       <header class="card-header">
         <p class="card-header-title strat-name">
           <%= @strat.name %>
