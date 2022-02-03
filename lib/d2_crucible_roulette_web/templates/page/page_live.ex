@@ -66,7 +66,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
       |> refetch_if_dupe(current_history)
 
     history = push_history(previous_strat, current_history)
-    Process.send(self(), {:save, strat, history}, [])
+    Process.send(self(), {:save, strat.id, history}, [])
     socket = assign(socket, strat: strat, history: history)
     {:noreply, socket}
   end
@@ -75,7 +75,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def handle_event("like", %{"id" => strat_id}, socket) do
     case Strats.like(strat_id) do
       {:ok, strat} ->
-        Process.send(self(), {:save, strat, socket.assigns.history}, [])
+        Process.send(self(), {:save, strat_id, socket.assigns.history}, [])
         socket = assign(socket, strat: strat)
         {:noreply, socket}
 
@@ -88,7 +88,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def handle_event("dislike", %{"id" => strat_id}, socket) do
     case Strats.dislike(strat_id) do
       {:ok, strat} ->
-        Process.send(self(), {:save, strat, socket.assigns.history}, [])
+        Process.send(self(), {:save, strat_id, socket.assigns.history}, [])
         socket = assign(socket, strat: strat)
         {:noreply, socket}
 
@@ -101,22 +101,25 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   def handle_event("restore", %{"currentStrat" => nil}, socket), do: {:noreply, socket}
 
   @impl Phoenix.LiveView
-  def handle_event("restore", %{"currentStrat" => strat, "currentHistory" => history}, socket) do
-    strat = Jason.decode!(strat, keys: :atoms)
+  def handle_event("restore", %{"currentStrat" => strat_id, "currentHistory" => history}, socket) do
+    case Strats.get(strat_id) do
+      nil ->
+        {:noreply, socket}
 
-    history = Jason.decode!(history)
-    socket = assign(socket, strat: strat, history: history)
-    {:noreply, socket}
+      strat ->
+        history = Jason.decode!(history)
+        socket = assign(socket, strat: strat, history: history)
+        {:noreply, socket}
+    end
   end
 
   @doc """
   Save takes the current strat and history and emits a JS event to save the items to sessionStorage
   """
   @impl Phoenix.LiveView
-  def handle_info({:save, strat, history}, socket) do
-    strat = Jason.encode!(strat)
+  def handle_info({:save, strat_id, history}, socket) do
     history = Jason.encode!(history)
-    {:noreply, push_event(socket, "setCurrent", %{strat: strat, history: history})}
+    {:noreply, push_event(socket, "setCurrent", %{strat: strat_id, history: history})}
   end
 
   defp refetch_if_dupe(strat, []), do: strat
