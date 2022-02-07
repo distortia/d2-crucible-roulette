@@ -15,7 +15,8 @@ defmodule D2CrucibleRoulette.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: D2CrucibleRoulette.PubSub},
       # Start the Endpoint (http/https)
-      D2CrucibleRouletteWeb.Endpoint
+      D2CrucibleRouletteWeb.Endpoint,
+      {Finch, name: Swoosh.Finch}
       # Start a worker by calling: D2CrucibleRoulette.Worker.start_link(arg)
       # {D2CrucibleRoulette.Worker, arg}
     ]

@@ -55,7 +55,8 @@ defmodule D2CrucibleRoulette.MixProject do
       {:shorter_maps, "~> 2.2"},
       {:ex_machina, "~> 2.7.0", only: :test},
       {:phoenix_swoosh, "~> 1.0"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:finch, "~> 0.10"}
     ]
   end
 
