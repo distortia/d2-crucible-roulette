@@ -11,9 +11,14 @@ defmodule D2CrucibleRouletteWeb.StratEmail do
   strat takes in a strat to create and send an email based off of the data provided
   """
   def strat(strat) do
+    email = System.get_env("EMAIL_ADDRESS") || "nope@example.com"
+
+    sender_email =
+      System.get_env("SENDGRID_EMAIL_ADDRESS") || "noreply@d2crucibleroulette.fly.dev"
+
     new()
-    |> to("me@example.com")
-    |> from({"D2 Crucible Roulette Team", "noreply@d2crucibleroulette.com"})
+    |> to(email)
+    |> from({"D2 Crucible Roulette Team", sender_email})
     |> subject("New Strat!")
     |> render_body("strat_email.html", %{strat: strat})
   end

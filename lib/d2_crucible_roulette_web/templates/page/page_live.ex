@@ -13,7 +13,6 @@ defmodule D2CrucibleRouletteWeb.PageLive do
     ~H"""
     <div class="section">
       <div class="container" id="page-live" phx-hook="Restore">
-        <span class="has-text-white"><%= @strat.name %></span>
         <.live_component module={StratComponent} id="strat-component" strat={@strat}/>
         <div class="hero is-dark">
           <div class="hero-body is-align-self-center">
