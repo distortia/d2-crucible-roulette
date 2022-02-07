@@ -38,10 +38,16 @@
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a href="/strats" class="button is-primary">
+                  <a href="/strats" class="button is-outlined is-light">
                     Strats
                   </a>
-                  <a href={Routes.page_path(@conn, :new)} class="button is-light">
+                  <a href="https://github.com/distortia/d2-crucible-roulette" class="button is-outlined is-light">
+                     <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Github</span>
+                  </a>
+                  <a href={Routes.page_path(@conn, :new)} class="button is-outlined is-primary">
                     Submit
                   </a>
                 </div>
