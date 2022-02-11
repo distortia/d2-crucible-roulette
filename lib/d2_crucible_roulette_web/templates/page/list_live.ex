@@ -65,7 +65,7 @@ defmodule D2CrucibleRouletteWeb.ListLive do
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     strats = Strats.list()
-    socket = assign(socket, strats: strats, active: nil)
+    socket = assign(socket, strats: strats, active: nil, page_title: "D2 Crucible Roulette | All Strats")
     {:ok, socket}
   end
 
