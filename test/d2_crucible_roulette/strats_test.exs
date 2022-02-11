@@ -24,19 +24,37 @@ defmodule D2CrucibleRoulette.StratsTest do
     end
 
     test "can be liked" do
-      ~M{id} = insert(:strat)
+      ~M{id, likes} = insert(:strat)
 
       {:ok, strat} = Strats.like(id)
 
-      assert strat.likes == strat.likes
+      assert strat.likes == likes + 1
+    end
+
+    test "can be unliked" do
+      ~M{id, likes} = insert(:strat)
+
+      Strats.like(id)
+      {:ok, strat} = Strats.unlike(id)
+
+      assert strat.likes == likes
     end
 
     test "can be disliked" do
-      ~M{id} = insert(:strat)
+      ~M{id, dislikes} = insert(:strat)
 
       {:ok, strat} = Strats.dislike(id)
 
-      assert strat.dislikes == strat.dislikes
+      assert strat.dislikes == dislikes + 1
+    end
+
+    test "can be un-disliked" do
+      ~M{id, dislikes} = insert(:strat)
+
+      Strats.dislike(id)
+      {:ok, strat} = Strats.undislike(id)
+
+      assert strat.dislikes == dislikes
     end
 
     test "can be found by id" do

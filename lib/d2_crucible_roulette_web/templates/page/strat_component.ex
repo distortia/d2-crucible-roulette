@@ -23,7 +23,7 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
         </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item has-text-success" phx-click="like" phx-value-id={@strat.id}>
+        <a class="card-footer-item has-text-success" phx-click={@like} phx-value-id={@strat.id}>
           <span class="icon-text">
             <span class="icon">
               <i class="fas fa-thumbs-up"></i>
@@ -31,7 +31,7 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
             <span class="strat-likes"><%= @strat.likes %></span>
           </span>
         </a>
-        <a class="card-footer-item has-text-danger" phx-click="dislike" phx-value-id={@strat.id}>
+        <a class="card-footer-item has-text-danger" phx-click={@dislike} phx-value-id={@strat.id}>
           <span class="icon-text">
             <span class="icon">
               <i class="fas fa-thumbs-down"></i>

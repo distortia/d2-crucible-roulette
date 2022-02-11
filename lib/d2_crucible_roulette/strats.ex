@@ -56,6 +56,16 @@ defmodule D2CrucibleRoulette.Strats do
   end
 
   @doc """
+  Fetches a strat by ID and updates the like counter -1
+  """
+  def unlike(strat_id) do
+    strat = get(strat_id)
+
+    strat
+    |> update(%{likes: strat.likes - 1})
+  end
+
+  @doc """
   Fetchs a strat by ID and updates the dislike counter
   """
   def dislike(strat_id) do
@@ -63,6 +73,16 @@ defmodule D2CrucibleRoulette.Strats do
 
     strat
     |> update(%{dislikes: strat.dislikes + 1})
+  end
+
+  @doc """
+  Fetchs a strat by ID and updates the dislike counter -1
+  """
+  def undislike(strat_id) do
+    strat = get(strat_id)
+
+    strat
+    |> update(%{dislikes: strat.dislikes - 1})
   end
 
   @doc """
