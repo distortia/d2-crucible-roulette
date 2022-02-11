@@ -32,17 +32,30 @@ Hooks.Restore = {
   mounted() {
     currentStrat = sessionStorage.getItem("currentStrat")
     currentHistory = sessionStorage.getItem("currentHistory")
-    this.pushEvent("restore", {currentStrat: currentStrat, currentHistory: currentHistory})
+    currentLike = sessionStorage.getItem("currentLike")
+    currentDislike = sessionStorage.getItem("currentDislike")
+    this.pushEvent("restore", {
+      currentStrat: currentStrat,
+      currentHistory: currentHistory,
+      currentLike: currentLike,
+      currentDislike: currentDislike
+    })
   }
 }
 
 Hooks.setCurrent = {
-  updated() {
+  mounted() {
     this.handleEvent("setCurrent", ({ history }) =>
       sessionStorage.setItem("currentHistory", history)
     )
     this.handleEvent("setCurrent", ({ strat }) =>
       sessionStorage.setItem("currentStrat", strat)
+    )
+    this.handleEvent("setCurrent", ({ like }) =>
+      sessionStorage.setItem("currentLike", like)
+    )
+    this.handleEvent("setCurrent", ({ dislike }) =>
+      sessionStorage.setItem("currentDislike", dislike)
     )
   }
 }

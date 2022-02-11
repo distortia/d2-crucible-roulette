@@ -12,20 +12,6 @@ defmodule D2CrucibleRouletteWeb.ListLiveTest do
     assert html =~ author
   end
 
-  test "a strat can be liked", ~M{conn} do
-    strat = insert(:strat)
-    {:ok, view, _html} = live(conn, "/strats")
-    render_click(view, :like, %{"id" => strat.id})
-    assert element(view, ".card .strat-likes") |> render() =~ "#{strat.likes + 1}"
-  end
-
-  test "a strat can be disliked", ~M{conn} do
-    strat = insert(:strat)
-    {:ok, view, _html} = live(conn, "/strats")
-    render_click(view, :dislike, %{"id" => strat.id})
-    assert element(view, ".card .strat-dislikes") |> render() =~ "#{strat.dislikes + 1}"
-  end
-
   test "strats can be sorted alphabetically by name", ~M{conn} do
     insert(:strat, %{name: "zzzz"})
     insert(:strat, %{name: "aaaaa"})
