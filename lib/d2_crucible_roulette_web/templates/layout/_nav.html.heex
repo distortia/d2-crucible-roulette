@@ -1,0 +1,84 @@
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <%= link to: "/", class: "navbar-item has-text-weight-bold" do %>
+        <span class="icon">
+          <i class="fas fa-dice-d20"></i>
+        </span>
+        <span>D2 Crucible Roulette</span>
+      <% end %>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <%= link to: Routes.page_path(@conn, :new), class: "button is-outlined is-primary"  do %>
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+              <span>
+                Submit
+              </span>
+            <% end %>
+            <%= link to: "/strats", class: "button is-outlined is-light" do %>
+              <span class="icon">
+                <i class="fas fa-list"></i>
+              </span>
+              <span>
+                Strats
+              </span>
+            <% end %>
+            <%= link to: "https://github.com/distortia/d2-crucible-roulette", class: "button is-outlined is-light" do %>
+                <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Github</span>
+            <% end %>
+            <%= if @current_user do %>
+              <%= link to: Routes.user_settings_path(@conn, :edit), class: "button is-outlined is-light" do %>
+                <span class="icon">
+                  <i class="fas fa-cogs"></i>
+                </span>
+                <span>
+                  Settings
+                </span>
+              <% end %>
+              <%= link to: Routes.user_session_path(@conn, :delete), method: :delete, class: "button is-outlined is-light" do %>
+                <span class="icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                </span>
+                <span>
+                  Log Out
+                </span>
+              <% end %>
+            <% else %>
+              <%= link to: Routes.user_session_path(@conn, :new), class: "button is-outlined is-light" do %>
+                <span class="icon">
+                  <i class="fas fa-sign-in-alt"></i>
+                </span>
+                <span>
+                  Log In
+                </span>
+              <% end %>
+              <%= link to: Routes.user_registration_path(@conn, :new), class: "button is-outlined is-light" do %>
+                <span class="icon">
+                  <i class="fas fa-user-plus"></i>
+                </span>
+                <span>
+                  Sign up
+                </span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -29,3 +29,8 @@
 .card + .card {
   margin-top: 2.5%;
 }
+
+.rotate:hover {
+  transition: 0.7s;
+  transform: rotateY(180deg);
+}

@@ -1,0 +1,35 @@
+<div class="section">
+  <div class="container">
+    <div class="hero is-dark">
+      <div class="hero-body is-align-self-center">
+        <h1 class="title">Forgot your password?</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="container">
+    <.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
+      <div class="field">
+        <%= label f, :email, class: "label has-text-white" %>
+
+        <div class="control has-icons-left">
+          <%= email_input f, :email, required: true, class: "input", autocomplete: "email" %>
+          <span class="icon is-small is-left has-text-primary">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+
+      </div>
+
+      <div>
+        <%= submit "Send instructions to reset password", class: "button is-primary" %>
+      </div>
+    </.form>
+
+    <p class="mt-5 has-text-white">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "has-text-white" %> |
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "has-text-white" %>
+    </p>
+  </div>
+</div>

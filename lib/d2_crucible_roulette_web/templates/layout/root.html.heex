@@ -4,16 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="D2 Crucible Roulette is a fun app for your Destiny 2 crucible experience. Grab some friends and jump in!">
-    <meta name="twitter:title" content="D2 Crucible Roulette">
-    <meta name="twitter:description" content="D2 Crucible Roulette is a fun app for your Destiny 2 crucible experience. Grab some friends and jump in!">
-    <meta name="twitter:image" content={Routes.static_path(@conn, "/images/d2_crucible_roulette.png")}>
-    <meta name="twitter:site" content="@ns_mizou">
-    <meta name="twitter:creator" content="@ns_mizou">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="D2 Crucible Roulette" />
-    <meta property="og:description" content="D2 Crucible Roulette is a fun app for your Destiny 2 crucible experience. Grab some friends and jump in!" />
-    <meta property="og:image" content={Routes.static_path(@conn, "/images/d2_crucible_roulette.png")} />
+    <%= render "_seo.html", conn: @conn %>
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "D2 Crucible Roulette" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
@@ -30,42 +21,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item has-text-weight-bold" href="/">
-              D2 Crucible Roulette
-            </a>
-
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-
-          <div id="navbar" class="navbar-menu">
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a href="/strats" class="button is-outlined is-light">
-                    Strats
-                  </a>
-                  <a href="https://github.com/distortia/d2-crucible-roulette" class="button is-outlined is-light">
-                     <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Github</span>
-                  </a>
-                  <a href={Routes.page_path(@conn, :new)} class="button is-outlined is-primary">
-                    Submit
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <%= render "_nav.html", conn: @conn, current_user: @current_user %>
     </header>
     <%= @inner_content %>
   </body>

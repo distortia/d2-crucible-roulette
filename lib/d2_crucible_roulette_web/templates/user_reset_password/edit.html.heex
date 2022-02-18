@@ -1,0 +1,53 @@
+<div class="section">
+  <div class="container">
+    <div class="hero is-dark">
+      <div class="hero-body is-align-self-center">
+        <h1 class="title">Reset password</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="container">
+    <.form let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)}>
+      <%= if @changeset.action do %>
+        <article class="message is-danger" role="alert">
+          <div class="message-body">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        </article>
+      <% end %>
+
+      <div class="field">
+        <%= label f, :password, "New password", class: "label has-text-white" %>
+        <div class="control has-icons-left">
+          <%= password_input f, :password, required: true, class: "input", autocomplete: "new-password" %>
+          <span class="icon is-small is-left has-text-primary">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+        <%= error_tag f, :password %>
+      </div>
+
+      <div class="field">
+        <%= label f, :password_confirmation, "Confirm new password", class: "label has-text-white" %>
+        <div class="control has-icons-left">
+          <%= password_input f, :password_confirmation, required: true, class: "input", autocomplete: "new-password" %>
+          <span class="icon is-small is-left has-text-primary">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+        <%= error_tag f, :password_confirmation %>
+      </div>
+
+      <div>
+        <%= submit "Reset password", class: "button is-primary" %>
+      </div>
+    </.form>
+
+    <p class="mt-5 has-text-white">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "has-text-white" %> |
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "has-text-white" %>
+    </p>
+  </div>
+</div>
