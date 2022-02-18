@@ -1,0 +1,21 @@
+<div class="section">
+  <div class="container">
+    <div class="hero is-dark">
+      <div class="hero-body is-align-self-center">
+        <h1 class="title">Confirm account</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="container">
+    <.form let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)}>
+      <%= submit "Confirm my account", class: "button is-primary" %>
+    </.form>
+
+    <p class="mt-5 has-text-white">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "has-text-white" %> |
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "has-text-white" %>
+    </p>
+  </div>
+</div>

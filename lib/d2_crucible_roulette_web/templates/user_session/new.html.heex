@@ -1,0 +1,56 @@
+<div class="section">
+  <div class="container">
+    <div class="hero is-dark">
+      <div class="hero-body is-align-self-center">
+        <h1 class="title">Log in</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="container">
+    <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+      <%= if @error_message do %>
+          <article class="message is-danger" role="alert">
+          <p class="message-body">
+            <%= @error_message %>
+          </p>
+        </article>
+      <% end %>
+
+      <div class="field">
+        <%= label f, :email, class: "label has-text-white" %>
+        <div class="control has-icons-left">
+          <%= email_input f, :email, required: true, class: "input", autocomplete: "email" %>
+          <span class="icon is-small is-left has-text-primary">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= label f, :password, class: "label has-text-white" %>
+        <div class="control has-icons-left">
+          <%= password_input f, :password, required: true, class: "input", autocomplete: "current-email" %>
+          <span class="icon is-small is-left has-text-primary">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= checkbox f, :remember_me, label: "checkbox" %>
+        <%= label f, :remember_me, "Keep me logged in for 60 days", class: "checkbox has-text-white" %>
+      </div>
+
+      <div class="field">
+        <%= submit "Log in", class: "button is-primary" %>
+      </div>
+    </.form>
+
+    <p class="mt-5 has-text-white">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "has-text-white" %> |
+      <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "has-text-white" %>
+    </p>
+  </div>
+</div>

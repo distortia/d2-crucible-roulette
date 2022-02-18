@@ -18,7 +18,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
         <div class="hero is-dark">
           <div class="hero-body is-align-self-center">
             <button class="button is-primary is-medium" id="fetch-button" phx-click="fetch" phx-disable-with="Rolling...">
-              <span class="icon">
+              <span class="icon rotate">
                 <i class="fas fa-dice-d20"></i>
               </span>
               <span>Roll</span>
