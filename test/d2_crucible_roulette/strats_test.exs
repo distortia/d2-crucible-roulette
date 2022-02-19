@@ -78,5 +78,16 @@ defmodule D2CrucibleRoulette.StratsTest do
     test "can return a changeset" do
       assert Strats.change() == Strats.Strat.changeset(%Strats.Strat{}, %{})
     end
+
+    test "can return a changeset using a given strat" do
+      strat = insert(:strat)
+      assert Strats.change(strat) == Strats.Strat.changeset(strat, %{})
+    end
+
+    test "can be deleted by id" do
+      ~M{id} = insert(:strat)
+      assert {:ok, _} = Strats.delete(id)
+      refute Strats.get(id)
+    end
   end
 end

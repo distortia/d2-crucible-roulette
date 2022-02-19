@@ -7,13 +7,30 @@ defmodule D2CrucibleRouletteWeb.StratComponentTest do
 
   test "renders the strat component" do
     strat = insert(:strat)
-    html = render_component(StratComponent, strat: strat, like: "like", dislike: "dislike")
 
-    html =~ strat.name
-    html =~ strat.description
-    html =~ strat.author
-    html =~ "Likes: #{strat.likes}"
-    html =~ "Disikes: #{strat.dislikes}"
+    html =
+      render_component(StratComponent,
+        strat: strat,
+        like: "like",
+        dislike: "dislike",
+        admin?: false
+      )
+
+    assert html =~ "<p class=\"card-header-title strat-name\">#{strat.name}</p>"
+    assert html =~ "<div class=\"description\">#{strat.description}</div>"
+    assert html =~ "<a href=\"https://discordapp.com/users/#{strat.author}\">#{strat.author}</a>"
+    assert html =~ "<span class=\"strat-likes\">#{strat.likes}</span>"
+    assert html =~ "<span class=\"strat-dislikes\">#{strat.dislikes}</span>"
+    refute html =~ "<a class=\"button is-warning mr-1 mt-1\" href=\"/strat/#{strat.id}\">Edit</a>"
+  end
+
+  test "renders the strat component as an admin" do
+    strat = insert(:strat)
+
+    html =
+      render_component(StratComponent, strat: strat, like: "like", dislike: "dislike", admin?: true)
+
+    assert html =~ "<a class=\"button is-warning mr-1 mt-1\" href=\"/strat/#{strat.id}\">Edit</a>"
   end
 
   # This is some fancy setup to test the main page and the strats page as they use the same component

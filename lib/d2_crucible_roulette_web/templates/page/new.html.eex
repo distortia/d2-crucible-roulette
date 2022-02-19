@@ -24,8 +24,11 @@
     </div>
     <div class="field">
       <label class="label has-text-white">Discord Name</label>
-      <div class="control">
+      <div class="control has-icons-left">
         <%= text_input f, :author, placeholder: "myname#1234", class: "input", required: true %>
+        <span class="icon is-small is-left has-text-primary">
+          <i class="fab fa-discord"></i>
+        </span>
       </div>
     </div>
 

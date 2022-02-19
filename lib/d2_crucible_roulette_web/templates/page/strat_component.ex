@@ -10,13 +10,14 @@ defmodule D2CrucibleRouletteWeb.StratComponent do
     ~H"""
     <div class="card" id={"strat-#{@strat.id}"} phx-hook="setCurrent" >
       <header class="card-header">
-        <p class="card-header-title strat-name">
-          <%= @strat.name %>
-        </p>
+        <p class="card-header-title strat-name"><%= @strat.name %></p>
+        <%= if @admin? do %>
+          <%= link "Edit", to: Routes.strat_path(@socket, :edit, @strat.id), class: "button is-warning mr-1 mt-1" %>
+        <% end %>
       </header>
       <div class="card-content">
         <div class="content">
-          <%= @strat.description %>
+          <div class="description"><%= @strat.description %></div>
           <div class="subtitle">
             - <a href={"https://discordapp.com/users/#{@strat.author}"}><%= @strat.author %></a>
           </div>

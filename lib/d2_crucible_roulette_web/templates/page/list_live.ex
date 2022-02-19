@@ -55,7 +55,7 @@ defmodule D2CrucibleRouletteWeb.ListLive do
       </section>
       <section>
         <%= for strat <- @strats do %>
-          <.live_component module={StratComponent} id={"strat-component-#{strat.id}"} strat={strat} like={@like} dislike={@dislike} />
+          <.live_component module={StratComponent} id={"strat-component-#{strat.id}"} strat={strat} like={@like} dislike={@dislike} admin?={@admin?} />
         <% end %>
       </section>
     </div>
@@ -63,8 +63,9 @@ defmodule D2CrucibleRouletteWeb.ListLive do
   end
 
   @impl Phoenix.LiveView
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     strats = Strats.list()
+    admin? = is_admin?(session)
 
     socket =
       assign(socket,
@@ -72,7 +73,8 @@ defmodule D2CrucibleRouletteWeb.ListLive do
         active: nil,
         page_title: "D2 Crucible Roulette | All Strats",
         like: "like",
-        dislike: "dislike"
+        dislike: "dislike",
+        admin?: admin?
       )
 
     {:ok, socket}
@@ -205,5 +207,23 @@ defmodule D2CrucibleRouletteWeb.ListLive do
 
   defp is_active(active, button_type) do
     if active == button_type, do: "is-active"
+  end
+
+  defp is_admin?(session) do
+    user_token = session["user_token"]
+
+    cond do
+      is_nil(user_token) ->
+        false
+
+      is_nil(D2CrucibleRoulette.Accounts.get_user_by_session_token(user_token)) ->
+        false
+
+      true ->
+        case D2CrucibleRoulette.Accounts.get_user_by_session_token(user_token) do
+          nil -> false
+          user -> user.admin
+        end
+    end
   end
 end
