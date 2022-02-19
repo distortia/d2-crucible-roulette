@@ -350,4 +350,13 @@ defmodule D2CrucibleRoulette.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Updates the user with the given attrs. Typically used for admin access.
+  """
+  def update_user(user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
 end

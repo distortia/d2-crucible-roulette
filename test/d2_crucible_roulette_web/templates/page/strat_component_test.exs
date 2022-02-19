@@ -28,7 +28,12 @@ defmodule D2CrucibleRouletteWeb.StratComponentTest do
     strat = insert(:strat)
 
     html =
-      render_component(StratComponent, strat: strat, like: "like", dislike: "dislike", admin?: true)
+      render_component(StratComponent,
+        strat: strat,
+        like: "like",
+        dislike: "dislike",
+        admin?: true
+      )
 
     assert html =~ "<a class=\"button is-warning mr-1 mt-1\" href=\"/strat/#{strat.id}\">Edit</a>"
   end

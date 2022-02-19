@@ -64,6 +64,7 @@ IEx.configure(
 )
 
 alias D2CrucibleRoulette.{
+  Accounts,
   Strats,
   Repo
 }

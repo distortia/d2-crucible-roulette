@@ -17,6 +17,14 @@ defmodule D2CrucibleRoulette.Accounts.User do
   end
 
   @doc """
+  Basic changeset for admin privileges
+  """
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:admin])
+  end
+
+  @doc """
   A user changeset for registration.
 
   It is important to validate the length of both email and password.
