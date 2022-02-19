@@ -143,6 +143,21 @@ defmodule D2CrucibleRouletteWeb.UserAuth do
     end
   end
 
+  @doc """
+  Used for routes that require the user to be ad admin.
+  """
+  def require_admin(conn, _opts) do
+    if conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You do not have admin access to this page.")
+      |> maybe_store_return_to()
+      |> redirect(to: Routes.user_session_path(conn, :new))
+      |> halt()
+    end
+  end
+
   defp maybe_store_return_to(%{method: "GET"} = conn) do
     put_session(conn, :user_return_to, current_path(conn))
   end

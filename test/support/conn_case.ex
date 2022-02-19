@@ -26,6 +26,7 @@ defmodule D2CrucibleRouletteWeb.ConnCase do
       import D2CrucibleRoulette.Factory
       import ShorterMaps
       alias D2CrucibleRouletteWeb.Router.Helpers, as: Routes
+      import D2CrucibleRoulette.AccountsFixtures
       # The default endpoint for testing
       @endpoint D2CrucibleRouletteWeb.Endpoint
     end

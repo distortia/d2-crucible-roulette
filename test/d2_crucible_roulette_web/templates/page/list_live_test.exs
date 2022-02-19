@@ -7,9 +7,9 @@ defmodule D2CrucibleRouletteWeb.ListLiveTest do
   test "renders strats page", ~M{conn} do
     ~M{name, description, author} = insert(:strat)
     {:ok, _view, html} = live(conn, "/strats")
-    assert html =~ name
-    assert html =~ description
-    assert html =~ author
+    assert html =~ "<p class=\"card-header-title strat-name\">#{name}</p>"
+    assert html =~ "<div class=\"description\">#{description}</div>"
+    assert html =~ "<a href=\"https://discordapp.com/users/#{author}\">#{author}</a>"
   end
 
   test "strats can be sorted alphabetically by name", ~M{conn} do

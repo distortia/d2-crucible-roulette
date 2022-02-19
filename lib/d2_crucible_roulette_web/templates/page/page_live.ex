@@ -14,7 +14,7 @@ defmodule D2CrucibleRouletteWeb.PageLive do
     ~H"""
     <div class="section">
       <div class="container" id="page-live" phx-hook="Restore">
-        <.live_component module={StratComponent} id="strat-component" strat={@strat} like={@like} dislike={@dislike} />
+        <.live_component module={StratComponent} id="strat-component" strat={@strat} like={@like} dislike={@dislike} admin?={@admin?} />
         <div class="hero is-dark">
           <div class="hero-body is-align-self-center">
             <button class="button is-primary is-medium" id="fetch-button" phx-click="fetch" phx-disable-with="Rolling...">
@@ -32,7 +32,9 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   end
 
   @impl Phoenix.LiveView
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    admin? = is_admin?(session)
+
     strat = Strats.random()
     history = []
 
@@ -41,7 +43,8 @@ defmodule D2CrucibleRouletteWeb.PageLive do
         strat: strat,
         history: history,
         like: "like",
-        dislike: "dislike"
+        dislike: "dislike",
+        admin?: admin?
       )
 
     {:ok, socket}
@@ -218,5 +221,23 @@ defmodule D2CrucibleRouletteWeb.PageLive do
 
   defp push_history(strat, history) do
     [[strat.name, strat.description] | history]
+  end
+
+  defp is_admin?(session) do
+    user_token = session["user_token"]
+
+    cond do
+      is_nil(user_token) ->
+        false
+
+      is_nil(D2CrucibleRoulette.Accounts.get_user_by_session_token(user_token)) ->
+        false
+
+      true ->
+        case D2CrucibleRoulette.Accounts.get_user_by_session_token(user_token) do
+          nil -> false
+          user -> user.admin
+        end
+    end
   end
 end

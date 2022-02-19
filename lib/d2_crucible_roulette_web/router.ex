@@ -76,6 +76,16 @@ defmodule D2CrucibleRouletteWeb.Router do
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
+  scope "/strat", D2CrucibleRouletteWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_admin]
+
+    get "/new", StratController, :new
+    post "/", StratController, :create
+    delete "/:id", StratController, :delete
+    get "/:id", StratController, :edit
+    put "/:id", StratController, :update
+  end
+
   scope "/", D2CrucibleRouletteWeb do
     pipe_through [:browser, :require_authenticated_user]
 

@@ -22,11 +22,3 @@ defmodule D2CrucibleRoulette.Strats.Strat do
     |> validate_required([:name, :description, :author])
   end
 end
-
-# defimpl Jason.Encoder, for: D2CrucibleRoulette.Strats.Strat do
-#   def encode(strat, opts) do
-#     strat
-#     |> Map.from_struct()
-#     |> Jason.Encode.map(opts)
-#   end
-# end

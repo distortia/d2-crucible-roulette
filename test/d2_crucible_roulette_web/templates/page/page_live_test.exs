@@ -8,9 +8,9 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
   test "renders home page", ~M{conn} do
     ~M{name, description, author} = insert(:strat)
     {:ok, _view, html} = live(conn, "/")
-    assert html =~ name
-    assert html =~ description
-    assert html =~ author
+    assert html =~ "<p class=\"card-header-title strat-name\">#{name}</p>"
+    assert html =~ "<div class=\"description\">#{description}</div>"
+    assert html =~ "<a href=\"https://discordapp.com/users/#{author}\">#{author}</a>"
     assert html =~ "<span>Roll</span>"
   end
 
@@ -20,9 +20,9 @@ defmodule D2CrucibleRouletteWeb.PageLiveTest do
 
     actual = render_click(view, :fetch)
 
-    assert actual =~ name
-    assert actual =~ description
-    assert actual =~ author
+    assert actual =~ "<p class=\"card-header-title strat-name\">#{name}</p>"
+    assert actual =~ "<div class=\"description\">#{description}</div>"
+    assert actual =~ "<a href=\"https://discordapp.com/users/#{author}\">#{author}</a>"
   end
 
   # This test is flakey :(

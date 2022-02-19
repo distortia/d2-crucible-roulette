@@ -19,7 +19,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <%= link to: Routes.page_path(@conn, :new), class: "button is-outlined is-primary"  do %>
+            <%= link to: if(@current_user && @current_user.admin, do: Routes.strat_path(@conn, :new), else: Routes.page_path(@conn, :new)), class: "button is-outlined is-primary"  do %>
               <span class="icon">
                 <i class="fas fa-plus"></i>
               </span>

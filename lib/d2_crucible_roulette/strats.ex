@@ -98,4 +98,20 @@ defmodule D2CrucibleRoulette.Strats do
   def change() do
     Strat.changeset(%Strat{}, %{})
   end
+
+  @doc """
+  Returns a changeset for the given strat
+  """
+  def change(strat) do
+    Strat.changeset(strat, %{})
+  end
+
+  @doc """
+  Deletes a given strat by id
+  """
+  def delete(id) do
+    id
+    |> get()
+    |> Repo.delete()
+  end
 end
