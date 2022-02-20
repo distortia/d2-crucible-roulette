@@ -54,18 +54,6 @@ defmodule D2CrucibleRouletteWeb.PageLive do
   Fetch handles the `fetch` event when clicking the `roll` button
   Sends a new strat to be displayed and updates the history with the new strat
 
-  Like handles the `like` event when clicking the thumbs-up on the given strat
-  Sends an update to the component that initiated the event or returns
-  nothing if something failed
-
-  Unlike handles the `unlike` event which will "undo" the liked strat
-
-  Dislike handles the `dislike` event when clicking the thumbs-down on the given strat
-  Sends an update to the component that initiated the event or returns
-  nothing if something failed
-
-  Undislike handles the `undislike` event which will "undo" disliking a strat
-
   Restore handles the `restore` event which restores session data containing the current strat and the strat history
   Sets the current strat id, history, like and dislike function to what is stored in the sessionStorage.
   If currentStrat is nil, then we continue on as normal
@@ -91,78 +79,6 @@ defmodule D2CrucibleRouletteWeb.PageLive do
       )
 
     {:noreply, socket}
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("like", %{"id" => strat_id}, socket) do
-    case Strats.like(strat_id) do
-      {:ok, strat} ->
-        Process.send(
-          self(),
-          {:save, strat_id, socket.assigns.history, "unlike", socket.assigns.dislike},
-          []
-        )
-
-        socket = assign(socket, strat: strat, like: "unlike")
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("unlike", %{"id" => strat_id}, socket) do
-    case Strats.unlike(strat_id) do
-      {:ok, strat} ->
-        Process.send(
-          self(),
-          {:save, strat_id, socket.assigns.history, "like", socket.assigns.dislike},
-          []
-        )
-
-        socket = assign(socket, strat: strat, like: "like")
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("dislike", %{"id" => strat_id}, socket) do
-    case Strats.dislike(strat_id) do
-      {:ok, strat} ->
-        Process.send(
-          self(),
-          {:save, strat_id, socket.assigns.history, socket.assigns.like, "undislike"},
-          []
-        )
-
-        socket = assign(socket, strat: strat, dislike: "undislike")
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("undislike", %{"id" => strat_id}, socket) do
-    case Strats.undislike(strat_id) do
-      {:ok, strat} ->
-        Process.send(
-          self(),
-          {:save, strat_id, socket.assigns.history, socket.assigns.like, "dislike"},
-          []
-        )
-
-        socket = assign(socket, strat: strat, dislike: "dislike")
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
   end
 
   @impl Phoenix.LiveView
@@ -192,6 +108,8 @@ defmodule D2CrucibleRouletteWeb.PageLive do
 
   @doc """
   Save takes the current strat and history and emits a JS event to save the items to sessionStorage
+
+  Save recieves a message from the child strat compnent and sends itself a message to update the sessionStorage
   """
   @impl Phoenix.LiveView
   def handle_info({:save, strat_id, history, like, dislike}, socket) do
@@ -204,6 +122,16 @@ defmodule D2CrucibleRouletteWeb.PageLive do
        like: like,
        dislike: dislike
      })}
+  end
+
+  def handle_info({:save, strat_id, like, dislike}, socket) do
+    Process.send(
+      self(),
+      {:save, strat_id, socket.assigns.history, like, dislike},
+      []
+    )
+
+    {:noreply, socket}
   end
 
   defp refetch_if_dupe(strat, []), do: strat
