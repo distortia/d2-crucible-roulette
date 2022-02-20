@@ -81,14 +81,6 @@ defmodule D2CrucibleRouletteWeb.ListLive do
   end
 
   @doc """
-  Like handles the `like` event when clicking the thumbs-up on the given strat
-  Sends an update to the component that initiated the event or returns
-  nothing if something failed
-
-  Dislike handles the `dislike` event when clicking the thumbs-up on the given strat
-  Sends an update to the component that initiated the event or returns
-  nothing if something failed
-
   Sort handles the sorting operation and expects a type to be passed in.
   After sorting the list of strats it is returned to the front end as well as an `active` to toggle which button is active for sorting
   Sort types:
@@ -97,74 +89,6 @@ defmodule D2CrucibleRouletteWeb.ListLive do
     - "likes" -> descending by strat likes
     - "dislikes" -> descending by strat dislikes
   """
-  @impl Phoenix.LiveView
-  def handle_event("like", %{"id" => strat_id}, socket) do
-    case Strats.like(strat_id) do
-      {:ok, strat} ->
-        send_update(StratComponent,
-          id: "strat-component-#{strat_id}",
-          strat: strat,
-          like: "unlike"
-        )
-
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("unlike", %{"id" => strat_id}, socket) do
-    case Strats.unlike(strat_id) do
-      {:ok, strat} ->
-        send_update(StratComponent,
-          id: "strat-component-#{strat_id}",
-          strat: strat,
-          like: "like"
-        )
-
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("dislike", %{"id" => strat_id}, socket) do
-    case Strats.dislike(strat_id) do
-      {:ok, strat} ->
-        send_update(StratComponent,
-          id: "strat-component-#{strat_id}",
-          strat: strat,
-          dislike: "undislike"
-        )
-
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("undislike", %{"id" => strat_id}, socket) do
-    case Strats.undislike(strat_id) do
-      {:ok, strat} ->
-        send_update(StratComponent,
-          id: "strat-component-#{strat_id}",
-          strat: strat,
-          dislike: "dislike"
-        )
-
-        {:noreply, socket}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
   @impl Phoenix.LiveView
   def handle_event("sort", %{"type" => "abc"}, socket) do
     strats =
