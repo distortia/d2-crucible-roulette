@@ -3,6 +3,8 @@
 Destiny 2 Crucible Roulette is a take on Strat Roulette that you may find in other games.
 The focus is to remain relatively simple so we can focus on having fun!
 
+Visit https://d2crucibleroulette.fly.dev/ to see it in action
+
 ## Getting Started
 
 1. Clone the repo
